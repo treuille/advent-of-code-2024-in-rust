@@ -1,0 +1,114 @@
+[[process]]
+name = "day_01"
+trigger = { on = "src/bin/day_01.rs" }
+run = "cargo run --bin day_01"
+stdio = "inherit"
+
+[[process]]
+name = "day_02"
+trigger = { on = "src/bin/day_02.rs" }
+run = "cargo run --bin day_02"
+stdio = "inherit"
+
+[[process]]
+name = "day_03"
+trigger = { on = "src/bin/day_03.rs" }
+run = "cargo run --bin day_03"
+stdio = "inherit"
+
+[[process]]
+name = "day_04"
+trigger = { on = "src/bin/day_04.rs" }
+run = "cargo run --bin day_04"
+stdio = "inherit"
+
+[[process]]
+name = "day_05"
+trigger = { on = "src/bin/day_05.rs" }
+run = "cargo run --bin day_05"
+stdio = "inherit"
+
+[[process]]
+name = "day_06"
+trigger = { on = "src/bin/day_06.rs" }
+run = "cargo run --bin day_06"
+stdio = "inherit"
+
+[[process]]
+name = "day_07"
+trigger = { on = "src/bin/day_07.rs" }
+run = "cargo run --bin day_07"
+stdio = "inherit"
+
+[[process]]
+name = "day_08"
+trigger = { on = "src/bin/day_08.rs" }
+run = "cargo run --bin day_08"
+stdio = "inherit"
+
+[[process]]
+name = "day_09"
+trigger = { on = "src/bin/day_09.rs" }
+run = "cargo run --bin day_09"
+stdio = "inherit"
+
+[[process]]
+name = "day_10"
+trigger = { on = "src/bin/day_10.rs" }
+run = "cargo run --bin day_10"
+stdio = "inherit"
+
+[[process]]
+name = "day_11"
+trigger = { on = "src/bin/day_11.rs" }
+run = "cargo run --bin day_11"
+stdio = "inherit"
+
+[[process]]
+name = "day_12"
+trigger = { on = "src/bin/day_12.rs" }
+run = "cargo run --bin day_12"
+stdio = "inherit"
+
+[[process]]
+name = "day_13"
+trigger = { on = "src/bin/day_13.rs" }
+run = "cargo run --bin day_13"
+stdio = "inherit"
+
+[[process]]
+name = "day_14"
+trigger = { on = "src/bin/day_14.rs" }
+run = "cargo run --bin day_14"
+stdio = "inherit"
+
+[[process]]
+name = "day_15"
+trigger = { on = "src/bin/day_15.rs" }
+run = "cargo run --bin day_15"
+stdio = "inherit"
+
+[[process]]
+name = "day_16"
+trigger = { on = "src/bin/day_16.rs" }
+stdio = "inherit"
+
+[[process]]
+name = "day_17"
+trigger = { on = "src/bin/day_17.rs" }
+stdio = "inherit"
+
+[[process]]
+name = "day_18"
+trigger = { on = "src/bin/day_18.rs" }
+stdio = "inherit"
+
+[[process]]
+name = "day_19"
+trigger = { on = "src/bin/day_19.rs" }
+stdio = "inherit"
+
+[[process]]
+name = "day_20"
+trigger = { on = "src/bin/day_20.rs" }
+stdio = "inherit"

@@ -1,0 +1,22 @@
+fn main() {
+    // Parse the input
+    let input = include_str!("../../puzzle_inputs/day_08_test.txt");
+    println!("input len: {}", input.len());
+    println!("input:\n{}", input);
+
+    //// Solve 21a
+    //let sol_21a: usize = 12;
+    //let correct_sol_21a: usize = 32;
+    //println!("* 21a *");
+    //println!("My solution: {sol_21a}");
+    //println!("Correct solution: {correct_sol_21a}");
+    //println!("Equal: {:?}\n", sol_21a.cmp(&correct_sol_21a));
+    //
+    //// Solve 21b
+    //let sol_21b: usize = 56;
+    //let correct_sol_21b: usize = 79;
+    //println!("* 21b *");
+    //println!("My solution: {sol_21b}");
+    //println!("Correct solution: {correct_sol_21b}");
+    //println!("Equal: {:?}\n", sol_21b.cmp(&correct_sol_21b));
+}
