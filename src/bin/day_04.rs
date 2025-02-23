@@ -1,86 +1,58 @@
 use advent_of_code_2024_in_rust::grid;
-use itertools::{iproduct, Itertools};
+use itertools::{iproduct, izip};
 use ndarray::Array2;
+
+const PATTERN_1: [[(usize, usize); 4]; 8] = [
+    [(0, 0), (1, 0), (2, 0), (3, 0)], // +x
+    [(3, 0), (2, 0), (1, 0), (0, 0)], // -x
+    [(0, 0), (0, 1), (0, 2), (0, 3)], // +y
+    [(0, 3), (0, 2), (0, 1), (0, 0)], // -y
+    [(0, 0), (1, 1), (2, 2), (3, 3)], // +x +y
+    [(3, 3), (2, 2), (1, 1), (0, 0)], // -x -y
+    [(0, 3), (1, 2), (2, 1), (3, 0)], // +x -y
+    [(3, 0), (2, 1), (1, 2), (0, 3)], // -x -y
+];
+const TARGET_1: &str = "XMAS";
+
+const PATTERN_2: [[(usize, usize); 6]; 4] = [
+    [(0, 0), (1, 1), (2, 2), (0, 2), (1, 1), (2, 0)],
+    [(0, 0), (1, 1), (2, 2), (2, 0), (1, 1), (0, 2)],
+    [(2, 2), (1, 1), (0, 0), (0, 2), (1, 1), (2, 0)],
+    [(2, 2), (1, 1), (0, 0), (2, 0), (1, 1), (0, 2)],
+];
+const TARGET_2: &str = "MASMAS";
 
 fn main() {
     // Parse the input
     let input = include_str!("../../puzzle_inputs/day_04.txt");
-    println!("input:\n{}", input);
-
     let input: Array2<char> = grid::parse_char_grid(input, |x| x);
-    println!("input:\n{:?}", input);
-    println!("input.dim(): {:?}", input.dim());
-    //let (w, h) = input.dim();
 
-    const DIRECTIONS: [(isize, isize); 8] = [
-        (-1, -1),
-        (0, -1),
-        (1, -1),
-        (-1, 0),
-        (1, 0),
-        (-1, 1),
-        (0, 1),
-        (1, 1),
-    ];
-    const TARGET: &str = "XMAS";
-    let iter = iproduct!(ndarray::indices(input.dim()), DIRECTIONS.iter());
-    let mut sum: usize = 0;
-    iter.for_each(|(idx, direction)| {
-        let (x, y) = (idx.0 as isize, idx.1 as isize);
-        //println!("x: {}, y: {}", x, y);
-        //println!("direction: {:?}", direction);
+    // Solve 04a
+    let sol_04a: usize = solve(&input, &PATTERN_1, TARGET_1);
+    let correct_sol_04a: usize = 2543;
+    println!("* 04a *");
+    println!("My solution: {sol_04a}");
+    println!("Correct solution: {correct_sol_04a}");
+    println!("Equal: {:?}\n", sol_04a.cmp(&correct_sol_04a));
 
-        let found = TARGET.chars().enumerate().all(|(i, c)| {
-            let (dx, dy) = direction;
-            let x = x + i as isize * dx;
-            if x < 0 {
-                return false;
-            }
-            let y = y + i as isize * dy;
-            if y < 0 {
-                return false;
-            }
-            input.get((x as usize, y as usize)) == Some(&c)
-        });
-        if found {
-            sum += 1;
-        }
-    });
+    // Solve 04b
+    let sol_04b: usize = solve(&input, &PATTERN_2, TARGET_2);
+    let correct_sol_04b: usize = 1930;
+    println!("* 04b *");
+    println!("My solution: {sol_04b}");
+    println!("Correct solution: {correct_sol_04b}");
+    println!("Equal: {:?}\n", sol_04b.cmp(&correct_sol_04b));
+}
 
-    println!("sum: {}", sum);
-    //
-    //DIRECTIONS.iter().
-
-    //let mul_regex = Regex::new(r"do\(\)|don't\(\)|mul\((\d{1,3}),(\d{1,3})\)").unwrap();
-    //let (mut sol_04a, mut sol_04b): (u32, u32) = (0, 0);
-    //let mut mul_enabled = true;
-    //for caps in mul_regex.captures_iter(input) {
-    //    if &caps[0] == "do()" {
-    //        mul_enabled = true;
-    //    } else if &caps[0] == "don't()" {
-    //        mul_enabled = false;
-    //    } else {
-    //        let cap_a = &caps[1].parse::<u32>().unwrap();
-    //        let cap_b = &caps[2].parse::<u32>().unwrap();
-    //        let product = cap_a * cap_b;
-    //        sol_04a += product;
-    //        if mul_enabled {
-    //            sol_04b += product;
-    //        }
-    //    }
-    //}
-
-    //// Solve 04a
-    //let correct_sol_04a: u32 = 183669043;
-    //println!("* 04a *");
-    //println!("My solution: {sol_04a}");
-    //println!("Correct solution: {correct_sol_04a}");
-    //println!("Equal: {:?}\n", sol_04a.cmp(&correct_sol_04a));
-    //
-    //// Solve 04b
-    //let correct_sol_04b: u32 = 59097164;
-    //println!("* 04b *");
-    //println!("My solution: {sol_04b}");
-    //println!("Correct solution: {correct_sol_04b}");
-    //println!("Equal: {:?}\n", sol_04b.cmp(&correct_sol_04b));
+fn solve<T>(input: &Array2<char>, pattern: &[T], target: &str) -> usize
+where
+    T: AsRef<[(usize, usize)]>,
+{
+    iproduct!(ndarray::indices(input.dim()), pattern.iter())
+        .filter_map(|(idx, offsets)| {
+            izip!(target.chars(), offsets.as_ref())
+                .all(|(c, offset)| input.get((idx.0 + offset.0, idx.1 + offset.1)) == Some(&c))
+                .then_some(())
+        })
+        .count()
 }
