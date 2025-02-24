@@ -1,5 +1,6 @@
 use advent_of_code_2024_in_rust::parse_regex::parse_lines;
 use regex::Regex;
+use std::cmp::Ordering;
 use std::collections::{HashMap, HashSet};
 
 fn main() {
@@ -15,8 +16,8 @@ fn main() {
     }
     let compare = |a: &u32, b: &u32| match (a, b) {
         (a, b) if a == b => std::cmp::Ordering::Equal,
-        (a, b) if less_than.get(a).unwrap().contains(b) => std::cmp::Ordering::Less,
-        (a, b) if less_than.get(b).unwrap().contains(a) => std::cmp::Ordering::Greater,
+        (a, b) if less_than.get(a).unwrap().contains(b) => Ordering::Less,
+        (a, b) if less_than.get(b).unwrap().contains(a) => Ordering::Greater,
         _ => panic!("Incomparable values: {a}, {b}"),
     };
 
@@ -29,7 +30,7 @@ fn main() {
     // Solve the puzzles
     let (mut sol_05a, mut sol_05b) = (0, 0);
     for mut page in pages {
-        if page.is_sorted_by(|a, b| compare(a, b) == std::cmp::Ordering::Less) {
+        if page.is_sorted_by(|a, b| compare(a, b) == Ordering::Less) {
             sol_05a += page[page.len() / 2];
         } else {
             page.sort_unstable_by(compare);
