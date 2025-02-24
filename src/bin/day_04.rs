@@ -49,10 +49,9 @@ where
     T: AsRef<[(usize, usize)]>,
 {
     iproduct!(ndarray::indices(input.dim()), pattern.iter())
-        .filter_map(|(idx, offsets)| {
+        .filter(|(idx, offsets)| {
             izip!(target.chars(), offsets.as_ref())
                 .all(|(c, offset)| input.get((idx.0 + offset.0, idx.1 + offset.1)) == Some(&c))
-                .then_some(())
         })
         .count()
 }
