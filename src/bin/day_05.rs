@@ -1,4 +1,3 @@
-#![allow(unused_imports)]
 use advent_of_code_2024_in_rust::parse_regex::parse_lines;
 use itertools::Itertools;
 use regex::Regex;
